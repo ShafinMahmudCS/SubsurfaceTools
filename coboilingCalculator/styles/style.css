@@ -1,0 +1,112 @@
+/*
+define color scheme with variables
+*/
+:root {
+  --dark-text: #0d0f1a;
+  --dark-accent: #284377;
+  --mid-accent: #58a68c;
+  --light-accent: #b6c2d9;
+  --light-text: #f0f0f0;
+  --error-accent: #d94745;
+  --attn-accent: #f6d337;
+  --custom-accent: #a42d6c;
+}
+
+body {
+  color: var(--dark-text);
+  background: var(--light-text);
+}
+
+.content {
+  padding: 0 2em;
+  max-width: 800px;
+  margin: 0 auto 50px;
+  line-height: 1.6em;
+}
+
+.header {
+  margin: 0;
+  color: var(--dark-accent);
+  text-align: center;
+  padding: 2em 2em 0;
+  border-bottom: 1px solid #eee;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.content-subhead {
+  font-weight: 600;
+  color: var(--dark-accent);
+  font-family: Trebuchet MS, sans-serif;
+}
+
+.home-menu {
+  padding: 0.5em;
+  font-family: Trebuchet MS, sans-serif;
+  text-align: center;
+  background: var(--dark-accent);
+}
+
+.pure-menu.pure-menu-fixed {
+  border-bottom: none;
+}
+
+.home-menu .pure-menu-heading {
+  color: var(--light-text);
+  font-weight: 700;
+  font-size: 120%;
+}
+
+.home-menu a {
+  color: var(--light-text);
+}
+
+.home-menu li a:hover,
+.home-menu li a:focus {
+  background: none;
+  border: none;
+  color: var(--light-accent);
+}
+
+.home-menu {
+  background: var(--dark-accent);
+}
+
+@media (min-width: 48em) {
+  .home-menu {
+    text-align: left;
+  }
+
+  .home-menu ul {
+    float: right;
+  }
+}
+
+.pure-button-primary:hover {
+  background-color: var(--mid-accent);
+}
+
+.pure-button-selected:hover {
+  background-color: var(--mid-accent);
+}
+
+.site-footer {
+  background-color: var(--dark-accent);
+  font-size: 15px;
+  padding-bottom: 0.5em;
+  color: #f0f0f0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.responsive {
+  width: 100%;
+  height: auto;
+}

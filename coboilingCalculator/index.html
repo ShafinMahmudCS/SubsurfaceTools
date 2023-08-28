@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, shrink-to-fit=no">
+    <link rel="stylesheet" href="./styles/pure-min.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>Co-Boiling Calc</title>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <nav>
+                <div class="home-menu pure-menu-horizontal pure-menu-fixed">
+                    <a class="pure-menu-heading" href="../index.html">Subsurface Tools</a>
+                    <ul class="pure-menu-list" style="padding-right: 1em">
+                        <li class="pure-menu-item"><a class="pure-menu-link" href="./index.html">CALC</a></li>
+                        <li class="pure-menu-item"><a class="pure-menu-link" href="./info.html">INFO</a></li>
+                        <li class="pure-menu-item"><a class="pure-menu-link" href="./about.html">ABOUT</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <div class="content">
+            <header>
+                <div>
+                    <br>
+                    <h1 class="content-subhead">Co-boiling Point Calculator</h1>
+                    <p>The calculator provides a tool for determining the co-boiling point of a contaminant in
+                        groundwater under various subsurface conditions. Fill out each field for soil and contaminant
+                        parameters to find the desired co-boiling point. For more information on parameters or anything
+                        else see <a href="#">Calculator Information</a>.</p>
+                </div>
+            </header>
+
+            <nav>
+                <div style="border-bottom: 3px solid var(--dark-accent)" class="pure-button-group">
+                    <button type="button" id="contaminantTab" class="pure-button-selected">Contaminant</button>
+                    <button type="button" id="soilTab" class="pure-button-primary">Soil</button>
+                </div>
+            </nav>
+
+            <div id="soilForm" class="tab-content">
+                Input soil parameters below, or select a known soil from menu below.
+                Menu below contains known soils and their parameters compiled in a database. For more
+                information see <a href="info.html#database">Database</a>.
+                <div style="border-bottom: 3px solid var(--mid-accent)">
+                    <select id="soil_choice" name="soil_choice" onchange="update(this.value, 'soil')">
+                      </select>
+
+                    <datalist id="soils">
+                    </datalist>
+                </div>
+                <br>
+                <div class="pure-form pure-form-aligned">
+                    <fieldset>
+                        <div class="pure-control-group">
+                            <label for="dp">Displacement Pressure</label>
+                            <input id='dp' name="dp" type="number" oninput="check(this)" step="any"
+                                placeholder="Enter Value..." />
+                            <span class="pure-form-message-inline">Pa</span>
+                        </div>
+                        <div class="pure-control-group" style="padding-bottom: 0.5em">
+                            <label for="swr">Residual Water Saturation</label>
+                            <input id='swr' name="swr" type="number" oninput="check(this)" step="any" max="0.999"
+                                placeholder="Enter Value..." />
+                            <span class="pure-form-message-inline" title="See Info for more information."><a
+                                    href="./info.html#parameters">&#8505;</a></span>
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="n">Porosity (n)</label>
+                            <input id='n' name="n" type="number" oninput="check(this)" step="any" max="0.999"
+                                placeholder="Enter Value..." />
+                        </div>
+                        <div class="pure-control-group" style="padding-bottom: 1em; padding-top: 0.7em">
+                            <label for="l">Pore Size Index (&lambda;)</label>
+                            <input id='l' name="l" type="number" oninput="check(this)" step="any"
+                                placeholder="Enter Value..." />
+                        </div>
+
+                        <div id="contentBlock">
+                            <hr style="border-bottom: 3px solid var(--mid-accent)">
+                            <div class="pure-control-group" style="padding-top: 1em; padding-bottom: 1em">
+                                <label id="depthLabel" for="depth">Depth of Contaminant (up to 100m)</label>
+                                <input id="depth" name="depth" type="number" value="10" step="any" min="5" max="100"
+                                    required="required">
+                                <span class="pure-form-message-inline">m</span>
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+                </div>
+                <br>
+                </form>
+            </div>
+            <div id="contaminantForm" class="tab-content active">
+                Input contaminant parameters below, or select a known contaminant from menu below.
+                Menu below contains known contaminants and their parameters compiled in a database. For more
+                information see <a href="info.html#database">Database</a>.
+                <div style="border-bottom: 3px solid var(--mid-accent)">
+                    <select id="contaminant_choice" name="contaminant_choice" onchange="update(this.value, 'contaminant')">
+                      </select>
+
+                    <datalist id="contaminants">
+                    </datalist>
+                </div>
+                <br>
+                <div class="pure-form pure-form-aligned">
+                    <fieldset>
+                        <div class="pure-control-group" style="padding-bottom: 0.5em">
+                            <label for="mw">Molecular weight</label>
+                            <input id='mw' type="number" oninput="check(this)" step="any"
+                                placeholder="Enter Value..." />
+                            <span class="pure-form-message-inline">g/mol</span>
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="sl">Solubility Limit</label>
+                            <input id='sl' type="number" oninput="check(this)" step="any"
+                                placeholder="Enter Value..." />
+                            <span class="pure-form-message-inline">mg/L @ 20°C</span>
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="a">Henry's Constant Regression (A)</label>
+                            <input id='a' type="number" oninput="check(this)" step="any" placeholder="Enter Value..." />
+                            <span class="pure-form-message-inline" title="See Info for more information.">
+                                <a href="./info.html#parameters">&#8505;</a>
+                            </span>
+                        </div>
+                        <div class="pure-control-group" style="padding-bottom: 1em">
+                            <label for="b">Henry's Constant Regression (B)</label>
+                            <input id='b' type="number" oninput="check(this)" step="any" placeholder="Enter Value..." />
+                        </div>
+                        <div id="contentBlock">
+                            <hr style="border-bottom: 3px solid var(--mid-accent)">
+                            <div class="pure-control-group" style="padding-top: 1em; padding-bottom: 1em">
+                                <label id="depthLabel" for="depth">Depth of Contaminant (up to 100m)</label>
+                                <input id="depth" name="depth" value="10" type="number" step="any" min="5" max="100"
+                                    required="required">
+                                <span class="pure-form-message-inline">m</span>
+                            </div>
+                          
+                        </div>
+
+                    </fieldset>
+                </div>
+                <br>
+            </div>
+            <div class="pure-button-group">
+                <button  class="pure-button-selected" type="button" id="calculate" >Calculate</button>
+                
+                <input type="submit" id="reset" name="calculate" value="Reset"
+                    class="pure-button-selected" />
+            </div>
+            <div id="resultDiv">
+                <hr style="border-bottom: 3px solid var(--dark-accent)">
+                <span id="resultText"></span>&emsp;
+                <a href="./info.html#math"
+                    title="Value rounded to nearest whole number. Press to see more information on calculations.">
+                    <span>&#8505;</span>
+                </a>
+
+                  
+                <hr style="border-bottom: 3px solid var(--dark-accent)">
+                <img id="resultGraph" src="path/to/default/graph.png" alt="graph" class="responsive"
+                    style="display: none;">
+                    <div class="myCanvas">
+                        <canvas id="chartCanvas"></canvas>
+                        <div id="canvas1Time" class="canvas-info">
+                          <p><span class="blue">Time (t):</span> <span class="demo"></span> day(s)</p>
+                        </div>
+                      </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div style="text-align: center">
+            <p>Copyright &copy; 2021 All Rights Reserved
+                <br>Author: Luca Cherpillod
+            </p>
+        </div>
+        <div style="text-align: center">
+            <a href="/contaminant" style="color: #f0f0f0">Calculator</a>&emsp;
+            <a href="/info" style="color: #f0f0f0">Information</a>&emsp;
+            <a href="/about" style="color: #f0f0f0">About</a>&emsp;
+            <a href="/about/#contact" style="color: #f0f0f0">Contact</a>
+        </div>
+    </footer>
+    <script>
+
+        function check(input) {
+            if (input.value <= 0) {
+                input.setCustomValidity('Value must be greater than zero.');
+            } else {
+                input.setCustomValidity('');
+            }
+        }
+    </script>
+
+      <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+      integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"
+      integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.1/chartjs-plugin-zoom.min.js"
+      integrity="sha512-klQv6lz2YR+MecyFYMFRuU2eAl8IPRo6zHnsc9n142TJuJHS8CG0ix4Oq9na9ceeg1u5EkBfZsFcV3U7J51iew=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./scripts/toggleSoilContaminant.js"></script>
+    <script src="./scripts/calculation.js"></script>
+    <script src="./scripts/displayResult.js"></script>
+    <script src="./scripts/updateData.js"></script>
+</body>
+
+</html>

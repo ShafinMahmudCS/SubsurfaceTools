@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./style/visualStyle.css"
+      title="style"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
+    <title>1D Continuous Injection</title>
+  </head>
+  <body class="light-theme">
+    <!-- preloader -->
+    <div class="spinner-wrapper">
+      <div class="sk-chase">
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+      </div>
+    </div>
+
+    <div id="top">
+      <input type="checkbox" id="darkmode-toggle" />
+      <label id="toggleLabel" for="darkmode-toggle">
+        <img src="./images/sun.svg" class="sun" />
+        <img src="./images/moon.svg" class="moon" />
+      </label>
+
+      <a id="header" href="index.html"
+        ><h1>Subsurface Transport Visualization Tool</h1></a
+      >
+    </div>
+
+    <h2>1D Continuous Injection</h2>
+
+    <p>
+      <b>Constant Conditions:</b> <b>Effective porosity (n<sub>e</sub>)</b> =
+      0.35
+    </p>
+
+    <!-- Sliders-->
+    <div class="container">
+      <div class="slidecontainer">
+        <p>Concentration (C) : <span class="demo"></span> mg/L</p>
+
+        <input
+          type="range"
+          min="0"
+          max="50"
+          value="25"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+
+      <div class="slidecontainer2">
+        <p>Darcy velocity (q): <span class="demo"></span></p>
+
+        <input
+          type="range"
+          min="0.000"
+          max="5.000"
+          step="0.001"
+          value="0.20000"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="slidecontainer3">
+        <p>
+          Dispersivity (&alpha;):
+          <span class="demo"></span> m
+        </p>
+
+        <input
+          type="range"
+          min="1.0"
+          max="15.0"
+          value="5.0"
+          step="0.1"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+
+      <div class="slidecontainer4">
+        <p>
+          Effective diffusion coefficient (D*):
+          <span class="demo"></span> m<sup>2</sup>/s
+        </p>
+
+        <input
+          type="range"
+          min="9.00"
+          max="28.00"
+          value="9.00"
+          step="0.01"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="slidecontainer5">
+        <p>Retardation factor (R) : <span class="demo"></span></p>
+
+        <input
+          type="range"
+          min="1.0"
+          max="20.0"
+          step="0.1"
+          value="1.0"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+
+      <div class="slidecontainer6">
+        <p>Half-life (&lambda;): <span class="demo"></span> day(s)</p>
+
+        <input
+          type="range"
+          min="0"
+          max="15000"
+          value="15000"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+    </div>
+
+    <!--Graphs-->
+    <div class="canvasSide">
+      <div class="myCanvas">
+        <canvas id="canvas1"></canvas>
+        <div id="canvas1Time" class="canvas-info">
+          <p>
+            <span class="blue">Time (t):</span>
+            <span class="demo"></span> day(s)
+          </p>
+          <input
+            type="range"
+            min="0"
+            max="500"
+            step="5"
+            value="80"
+            class="slider"
+            id="myRange"
+          />
+        </div>
+      </div>
+
+      <div class="myCanvas">
+        <canvas id="canvas2"></canvas>
+        <div id="canvas2Distance" class="canvas-info">
+          <p>
+            <span class="pink">Distance (x):</span> <span class="demo"></span> m
+          </p>
+          <input
+            type="range"
+            min="0"
+            max="500"
+            step="5"
+            value="80"
+            class="slider"
+            id="myRange"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!--Zoom button-->
+    <div class="mybtn">
+      <div class="left">
+        <button class="btn" id="downloadButton1">Download Data</button>
+        <button class="btn" onclick="toggleZoom1()">toggle Zoom</button>
+      </div>
+      <div class="right">
+        <button class="btn" id="downloadButton2">Download Data</button>
+        <button class="btn" onclick="toggleZoom2()">toggle Zoom</button>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+      integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"
+      integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.1/chartjs-plugin-zoom.min.js"
+      integrity="sha512-klQv6lz2YR+MecyFYMFRuU2eAl8IPRo6zHnsc9n142TJuJHS8CG0ix4Oq9na9ceeg1u5EkBfZsFcV3U7J51iew=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./script/theme.js"></script>
+    <script src="./script/continuous1D.js"></script>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, shrink-to-fit=no">
+    <link rel="stylesheet" href="./styles/pure-min.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>Co-Boiling Calc</title>
+</head>
+<body>
+<header>
+    <div class="header">
+        <nav>
+            <div class="home-menu pure-menu-horizontal pure-menu-fixed">
+                <a class="pure-menu-heading" href="index.html">Co-Boiling Point Calculator</a>
+                <ul class="pure-menu-list" style="padding-right: 1em">
+                    <li class="pure-menu-item"><a class="pure-menu-link" href="index.html">CALC</a></li>
+                    <li class="pure-menu-item"><a class="pure-menu-link" href="info.html">INFO</a></li>
+                    <li class="pure-menu-item"><a class="pure-menu-link" href="about.html">ABOUT</a></li>
+                </ul>
+            </div>
+        </nav>
+     </div>
+</header>
+    <div class="content">
+        <main>
+            <h1 class="content-subhead" style="padding-top: 1em;">How to Use the Co-Boiling Point Calculator (cBPC)</h1>
+            <p>
+                This website provides a calculator to predict the co-boiling point of groundwater contaminants under
+                various subsurface conditions. This tool is designed to provide a method for estimating the co-boiling
+                point without the need for extensive calculations or in simulating the whole system.
+            </p>
+            <p><b>Co-Boiling point: </b>The temperature at which an aqueous compound dissolved in water
+                will volatilize and could possibly be removed from the subsurface. Temperature depends on many
+                parameters including, contaminant type, soil type, and depth of contaminant.</p>
+            <p>
+                To use the cBPC, enter values for each parameter for the soil and contaminant in the system.
+                Values can be entered manually or selected from the provided database. For more information on each
+                parameter or the database see below.
+                <br><b>The cBPC makes some assumptions:</b>
+            </p>
+            <ol>
+                <li>1. Initial mass of contaminant in system is calculated at 20°C ; therefore all parameters are
+                    taken at 20°C, except the Henry’s coefficient which changes with temperature.</li>
+                <li>2. Soils and contaminants are assumed to be homogeneous in nature, contaminants are assumed to be
+                    dissolved in water.</li>
+                <li>3. Gas formation is assumed to occur when gas saturation exceeds 0.01.</li>
+            </ol>
+            <h2 class="content-subhead" ><a id="parameters">Contaminant Parameters</h2>
+            <p><b>Molecular Weight (g/mol): </b>The molecular weight of the compound.</p>
+            <p><b>Solubility Limit (mg/L): </b>The maximum amount of a solute that can dissolve in a solvent at a
+                specified temperature and pressure is its solubility. This value is taken at 20°C, and is used to
+                simulate conditions before heat is introduced into the system.</p>
+            <p><b>Henry’s Coefficient: </b> Henry’s coefficient is the ratio between the aqueous phase concentration
+                and the gas phase concentration. For the cBPC, it is assumed to be temperature dependant and a linear
+                regression model in the form of <img src="./resources/equation_H.png"> was used. [1] Discrete data can be obtained from
+                the EPA online tool <a href="https://www3.epa.gov/ceampubl/learn2model/part-two/onsite/esthenry.html" target="_blank">here</a>,
+                 which uses two different methods to calculate H based on temperature.
+                These discrete calculations are based on experimental results and are only accurate within a temperature
+                range same as the values obtained from the above paper [1]. Therefore these values may not be as
+                accurate at really high temperatures, see below.</p>
+            <h2 class="content-subhead">Soil Parameters</h2>
+            <p><b>Residual Water Saturation: </b>The amount of water in a soil system after the displacement pressure
+                had removed all excess water from the system. This is sometimes referred to the irreducible water
+                saturation and represents water that is trapped in the smallest (or not connected) pores.  is
+                represented as a fraction of the total water saturation (or one) minus the initial water saturation .</p>
+            <p><b>Displacement Pressure (Pa): </b>The pressure at which water first enters the soil by overcoming
+                capillary pressure is defined the displacement pressure (Pd). Determined experimentally. </p>
+            <p><b>Pore Size index (λ): </b>relative abundance of each pore size in a representative volume of soil.
+                It can be represented as a value proportional to the volume of pores whose effective radius is
+                within a range centered any given position. The pore size index is part of the Brooks-Corey
+                relationships for defining the relationship between saturation and capillary pressure.</p>
+            <p><b>Porosity (n): </b>a measure of the total amount of empty space or voids in soil.
+                Represented as a fraction of the total volume between 0 and 1 or 0% and 100%. </p>
+            <h2 class="content-subhead" ><a id="database"> Database</h2>
+            <p>
+                The database is a collection of known soil and contaminant parameters.
+                The contaminants are separated by contaminant type and defined by the <a href="https://frtr.gov/matrix2/section2/2_intro.html" target="_blank">
+                FRTR screening Matrix and reference guide</a>. Molecular weight and solubility limit were obtained from
+                the <a href="https://www.ilo.org/safework/info/publications/WCMS_113134/lang--en/index.htm" target="_blank">
+                ILO International Chemical Safety Cards</a>. Henry’s Coefficient values were obtained from the
+                <a href="https://www3.epa.gov/ceampubl/learn2model/part-two/onsite/esthenry.html" target="_blank">EPA.</a> tool or
+                the paper [1]. Soil parameters were obtained from published papers which collected experimental data from different soils.
+                Soils are sorted by type and porosity therefore a soil closest in, porosity, Pd, Lambda and sr should be selected from
+                the database. If specific parameters, that are not in the database, are known they can be used in the cBPC.
+            </p>
+            <h2 class="content-subhead"><a id="math"> Math</h2>
+            <p>
+                In order to determine the co-boiling point of the given system the calculator first calculates the
+                expected mass of contaminant in system based on solubility, molecular weight, and porosity. With that you
+                can then make a guess of what the temperature should be and see if the expected mass matches at that
+                temperature based on the other parameters. The calculator does this using a binary search algorithm to find the
+                correct temperature which then gets rounded to the nearest whole value to account for any rounding or
+                precision error. The calculations are done using some equations such as the Brooks-Corey equation for
+                capillary pressure, Henry's Law, Dalton's Law, and the ideal gas law. [2] <br><br>The calculator can sometimes
+                fail to find a solution for the system if one doesn't exist or if it falls out of the expected bounds, most
+                real systems however should have a solution. The method of determining Henry's coefficient may also lead
+                to some inaccuracy at higher temperatures. For more information on the calculations and background research see
+                <a href="about.html">about</a>.
+            </p>
+            <h2 class="content-subhead" >References</h2>
+            <p>
+                [1] J. M. Gossett, “Measurement of Henry's law constants for C1 and C2 chlorinated hydrocarbons,” Environmental Science & Technology, 1987.
+                <br>[2] M. M. Krol, K. G. Mumford, R. L. Johnson, and B. E. Sleep, “Modeling discrete gas bubble formation and mobilization during subsurface heating of contaminated zones,” Advances in Water Resources, 02-Feb-2011.
+            </p>
+
+            <br><br><br>
+        </main>
+    </div>
+    <footer class="site-footer">
+        <div style="text-align: center">
+            <p>Copyright &copy; 2021 All Rights Reserved
+                <br>Author: Luca Cherpillod
+            </p>
+        </div>
+        <div style="text-align: center">
+            <a href="/contaminant" style="color: #f0f0f0">Calculator</a>&emsp;
+            <a href="/info" style="color: #f0f0f0">Information</a>&emsp;
+            <a href="/about" style="color: #f0f0f0">About</a>&emsp;
+            <a href="/about/#contact" style="color: #f0f0f0">Contact</a>
+        </div>
+    </footer>
+    </body>

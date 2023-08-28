@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./style/visualStyle.css"
+      title="style"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
+    <!--Copyright (C) 2013-present   SheetJS LLC-->
+    <script src="./script/bessel.js"></script>
+    <script src="https://cdn.rawgit.com/SheetJS/printj/master/printj.js"></script>
+
+    <title>2D Continuous Injection</title>
+  </head>
+  <body class="light-theme">
+    <!-- preloader -->
+    <div class="spinner-wrapper">
+      <div class="sk-chase">
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+      </div>
+    </div>
+
+    <div id="top">
+      <input type="checkbox" id="darkmode-toggle" />
+      <label id="toggleLabel" for="darkmode-toggle">
+        <img src="./images/sun.svg" class="sun" />
+        <img src="./images/moon.svg" class="moon" />
+      </label>
+      <a id="header" href="index.html"
+        ><h1>Subsurface Transport Visualization Tool</h1></a
+      >
+    </div>
+
+    <h2>2D Continuous Injection</h2>
+
+    <p>
+      <b>Constant Conditions:</b> <b>Effective porosity (n<sub>e</sub>)</b> =
+      0.35
+    </p>
+
+    <!-- Sliders-->
+    <div class="container">
+      <div class="slidecontainer">
+        <p>Concentration (C) : <span class="demo"></span> mg/L</p>
+
+        <input
+          type="range"
+          min="0"
+          max="200"
+          value="133"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+
+      <div class="slidecontainer2">
+        <p>
+          Flow rate (Q): <span class="demo"></span> m<sup>3</sup>/day,
+          <span class="flow"></span>
+        </p>
+
+        <input
+          type="range"
+          min="0.00"
+          max="100.00"
+          step="0.01"
+          value="3.66"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="slidecontainer3">
+        <p>Retardation factor (R) : <span class="demo"></span></p>
+
+        <input
+          type="range"
+          min="1.0"
+          max="20.0"
+          step="0.1"
+          value="1.0"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+
+      <div class="slidecontainer4">
+        <p>Aquifer thickness (b): <span class="demo"></span> m</p>
+
+        <input
+          type="range"
+          min="1.00"
+          max="5.00"
+          step="0.01"
+          value="1.75"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="slidecontainer5">
+        <p>y: <span class="demo"></span> m</p>
+
+        <input
+          type="range"
+          min="0"
+          max="20"
+          value="16"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+
+      <div class="slidecontainer6">
+        <p>Half-life (&lambda;): <span class="demo"></span> day(s)</p>
+
+        <input
+          type="range"
+          min="1"
+          max="10000"
+          value="10000"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="slidecontainer7">
+        <p>
+          Transverse dispersivity (&alpha;<sub>y</sub>) :
+          <span class="demo"></span> m
+        </p>
+
+        <input
+          type="range"
+          min="0.000"
+          max="50.0000"
+          value="0.4919"
+          step="0.0001"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+
+      <div class="slidecontainer8">
+        <p>
+          Longitudinal dispersivity (&alpha;<sub>x</sub>):
+          <span class="demo"></span> m
+        </p>
+
+        <input
+          type="range"
+          min="1.000"
+          max="200.000"
+          value="4.919"
+          step="0.001"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+    </div>
+
+    <div class="diffContainer">
+      <div class="slidecontainer1D">
+        <p>
+          Effective diffusion coefficient (D*):
+          <span class="demo"></span> m<sup>2</sup>/s
+        </p>
+
+        <input
+          type="range"
+          min="9.00"
+          max="28.00"
+          value="9.00"
+          step="0.01"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+    </div>
+
+    <!--Graphs-->
+    <div class="canvasSideContinuous">
+      <div class="myCanvas">
+        <canvas id="canvas1"></canvas>
+      </div>
+    </div>
+
+    <!--Zoom button-->
+    <div class="mybtn">
+      <div class="right">
+        <button class="btn" id="downloadButton">Download Data</button>
+
+        <button class="btn" onclick="toggleZoom1()">toggle Zoom</button>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+      integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"
+      integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.1/chartjs-plugin-zoom.min.js"
+      integrity="sha512-klQv6lz2YR+MecyFYMFRuU2eAl8IPRo6zHnsc9n142TJuJHS8CG0ix4Oq9na9ceeg1u5EkBfZsFcV3U7J51iew=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./script/theme.js"></script>
+    <script src="./script/continuous2D.js"></script>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Information</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="./style/index.css" />
+  </head>
+  <body>
+  
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <input type="checkbox" id="darkmode-toggle"/>
+        <label id="toggleLabel" for="darkmode-toggle">
+          <img src="./images/sun.svg" class="sun" />
+          <img src="./images/moon.svg" class="moon" />
+        </label>
+        <a class="navbar-brand" href="index.html"
+          >Subsurface Transport Visualization Tool</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-md-auto gap-2">
+            <li class="nav-item rounded lg">
+              <img id="logo2" src="images/logo2.png" alt="" />
+            </li>
+            <li class="nav-item rounded">
+              <a class="nav-link" aria-current="page" href="index.html"
+                ><i class="bi me-2"></i>VISUALIZER</a
+              >
+            </li>
+            <li class="nav-item rounded">
+              <a class="nav-link active" href="info.html"
+                ><i class="bi me-2"></i>INFO</a
+              >
+            </li>
+            <li class="nav-item rounded">
+              <a class="nav-link" href="about.html"
+                ><i class="bi me-2"></i>ABOUT</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="mainMargin">
+      <h2 id="header">How to Use the Visualization Tool</h2>
+      <p class="text">
+        This web-based tool uses analytical solutions to the Advection Dispersion (AD) equation for different injection scenarios to graphically represent the various transport mechanisms. The tool allows certain values to be changed to study their effect on contaminant transport in groundwater. The AD and the analytical solutions used are given below.
+      </p>
+      <h3 id="highlight">Advection Dispersion Equation:</h3>
+
+      <div class="container">
+        <figure>
+          <img src="images/AD.png" alt="" />
+          <figcaption>
+            Source: Contaminant Hydrogeology by C. W. Fetter
+          </figcaption>
+        </figure>
+      </div>
+
+      <h3 id="highlight">Analytical Solutions under Various Assumptions:</h3>
+
+      <div class="container">
+        <figure>
+          <img id="visual" src="images/Asol.png" alt="" />
+          <figcaption>
+            Source: Contaminant Hydrogeology by C. W. Fetter
+          </figcaption>
+        </figure>
+      </div>
+
+      <h3 id="highlight">Parameters</h3>
+      <p class="text">
+        <b>Concentration (C) [M/L<sup>3</sup>]:</b> The amount of solute (in moles or mass) per
+        unit volume.
+      </p>
+
+      <p class="text">
+        <b>Time (t) [T]:</b> Time of simulation.
+      </p>
+
+      <p class="text">
+        <b>Pore water (seepage) velocity (v) [L/T]:</b> Groundwater flow through pores, v = q/n<sub>e</sub>.
+      </p>
+
+      <p class="text">
+        <b>Darcy velocity (q) [L/T]:</b> Groundwater flow per unit cross-sectional area of porous medium.
+      </p>
+
+      <p class="text">
+        <b>Distance (x) [L]:</b> Distance in the x direction.
+      </p>
+
+      <p class="text">
+        <b>Distance (y) [L]: </b> Distance in the y direction.
+      </p>
+
+      <p class="text">
+        <b>Effective diffusion coefficient (D*) [L<sup>2</sup>/T]:</b> specie diffusion in porous media; to account for the impact of longer pathways due to soil grains, an effective diffusion coefficient is used, which is less than the diffusion coefficient in water.
+      </p>
+
+      <p class="text">
+        <b>Effective porosity (n<sub>e</sub>) [-]:</b> Ratio of the volume of voids to the total volume of soil. Effective porosity is the porosity through which flow can occur (i.e. the pores have to be connected). Unconnected and dead-end pores are not included in the effective porosity.
+      </p>
+      <p class="text">
+        <b>Longitudinal dispersivity (&alpha;<sub>x</sub>) [L]:</b> Using the assumption that mechanical dispersion is linearly related to average porewater velocity, longitudinal dispersity is defined as the ratio of longitudinal dispersion coefficient (dispersion in the direction of flow) to average porewater velocity. It represents the local variations in the groundwater velocity in the direction of flow.
+      </p>
+      <p class="text">
+        <b>Transverse dispersivity (&alpha;<sub>y</sub>) [L]:</b> This is the ratio of transverse dispersion coefficient (dispersion normal to flow direction) to the average porewater velocity.
+      </p>
+      <p class="text">
+        <b>Area (A) [L<sup>2</sup>]:</b> The cross-section through which groundwater is passing.
+        
+      </p>
+
+      <p class="text">
+        <b>Retardation factor (R) [-]:</b> Some solutes will travel considerably more slowly through the aquifer due to sorption processes; this phenomenon is referred to as retardation.
+      </p>
+
+      <p class="text">
+        <b>Half-life (&lambda;) [T]:</b> The time required for a substance to reduce to half of its initial amount.
+      </p>
+
+
+
+    </div>
+    <footer>
+      <p class="text-center p-4 m-0">Developed by: Shafin Mahmud </br>Copyright © 2023 All Rights Reserved</p>
+    </footer>
+    <!-- partial -->
+    <script src="./script/theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
