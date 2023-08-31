@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="./styles/style.css">
     <title>Co-Boiling Calc</title>
 </head>
-<body>
+<body class="light-theme">
+    <input type="checkbox" id="darkmode-toggle"/>
+    <label id="toggleLabel" for="darkmode-toggle">
+      <img src="./resources/sun.svg" class="sun" />
+      <img src="./resources/moon.svg" class="moon" />
+    </label>
 <header>
     <div class="header">
         <nav>
@@ -28,23 +33,23 @@
             <p>
                 This website was constructed as a project alongside ongoing groundwater remediation research int the Krol
                 Lab, at the lassonde School of Engineering. The project was built with a
-                <a href="https://flask.palletsprojects.com/" target="_blank">Flask</a>
-                framework using <a href="https://purecss.io/" target="_blank">Pure.css</a> for layout and styling.
-                This work was done under the supervision of <a href="https://civil.lassonde.yorku.ca/magdalena-krol/" target="_blank">Professor Magdalena Krol</a>.
+                <a class="links" href="https://flask.palletsprojects.com/" target="_blank">Flask</a>
+                framework using <a class="links" href="https://purecss.io/" target="_blank">Pure.css</a> for layout and styling.
+                This work was done under the supervision of <a class="links" href="https://civil.lassonde.yorku.ca/magdalena-krol/" target="_blank">Professor Magdalena Krol</a>.
                 Professor Krol is an expert in contaminant hydrogeology with an emphasis on modelling thermal remediation.
             </p>
             <p>
-                This work obtained funding from <a href="https://lassonde.yorku.ca/" target="_blank">Lassonde School of Engineering</a>
-                through Lassonde Undergraduate Research  Award and was initiated through the  <a href="https://stemfellowship.org/" target="_blank">Indicium</a>
-                Undergraduate Research program which was held  during 2020-2021. The details of the <a href="https://stemfellowship.org/" target="_blank">Indicium</a>
+                This work obtained funding from <a class="links" href="https://lassonde.yorku.ca/" target="_blank">Lassonde School of Engineering</a>
+                through Lassonde Undergraduate Research  Award and was initiated through the  <a class="links" href="https://stemfellowship.org/" target="_blank">Indicium</a>
+                Undergraduate Research program which was held  during 2020-2021. The details of the <a class="links" href="https://stemfellowship.org/" target="_blank">Indicium</a>
                 work can be seen in the following poster which outlines  the work done along with details of the
                 background research and detailing the calculations behind this tool.
             </p>
-            <a href="/calc/static/resources/Poster.pdf" download>View Poster</a>
+            <a class="links" href="/calc/static/resources/Poster.pdf" download>View Poster</a>
             <br><br><iframe width="420" height="315" src="https://www.youtube.com/embed/QmjqM8SWHOk">
             </iframe>
             <p>
-                Thanks to <a href="https://civil.lassonde.yorku.ca/magdalena-krol/" target="_blank">Professor Magdalena Krol</a>
+                Thanks to <a class="links" href="https://civil.lassonde.yorku.ca/magdalena-krol/" target="_blank">Professor Magdalena Krol</a>
                 for supervising the work done on this project and providing support
                 during the whole process.
             </p>
@@ -70,10 +75,12 @@
             </p>
         </div>
         <div style="text-align: center">
-            <a href="/contaminant" style="color: #f0f0f0">Calculator</a>&emsp;
-            <a href="/info" style="color: #f0f0f0">Information</a>&emsp;
-            <a href="/about" style="color: #f0f0f0">About</a>&emsp;
-            <a href="/about/#contact" style="color: #f0f0f0">Contact</a>
+            <a href="index.html" style="color: #f0f0f0">Calculator</a>&emsp;
+            <a href="info.html" style="color: #f0f0f0">Information</a>&emsp;
+            <a href="about.html" style="color: #f0f0f0">About</a>&emsp;
+            <a href="about.html#contact" style="color: #f0f0f0">Contact</a>
         </div>
     </footer>
+    <script src="./scripts/theme.js"></script>
     </body>
+</html>

@@ -1,3 +1,62 @@
+document.getElementById("resultDiv").style.display = "none";
+
+var chart = null;
+let ctx = document.getElementById("chartCanvas").getContext("2d");
+
+// Function to create/update chart
+function mychart(x, y) {
+  if (chart) {
+    chart.destroy();
+  }
+  chart = new Chart(ctx, {
+    type: "scatter",
+    data: {
+      labels: x,
+      datasets: [
+        {
+          data: y,
+          borderColor: "#FF5733",
+          fill: false,
+          tension: 0.4,
+          showLine: true,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Temperature (°C)",
+          },
+        },
+        y: {
+          reverse: true,
+          min: 0,
+          max: 100,
+          title: {
+            display: true,
+            text: "Depth (m)",
+          },
+        },
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: "Coboiling Point vs. Depth",
+          padding: {
+            bottom: 10,
+          },
+        },
+        legend: {
+          display: false,
+        },
+      },
+    },
+  });
+}
+
 function getTemp(n, pw, sg, sm, pc, tm, low, high, A, B) {
   let temp = (low + high) / 2;
   const r = 8.314472;
@@ -19,9 +78,6 @@ function getTemp(n, pw, sg, sm, pc, tm, low, high, A, B) {
 const btn = document.getElementById("calculate");
 
 btn.addEventListener("click", getResult);
-
-var chart = null;
-let ctx = document.getElementById("chartCanvas").getContext("2d");
 
 function getResult() {
   let MW = document.getElementById("mw").value;
@@ -88,56 +144,7 @@ function getResult() {
     currentDepth += 5;
   }
 
-  if (chart) {
-    chart.destroy();
-  }
-  chart = new Chart(ctx, {
-    type: "scatter",
-    data: {
-      labels: x,
-      datasets: [
-        {
-          data: y,
-          borderColor: "#FF5733",
-          fill: false,
-          tension: 0.4,
-          showLine: true,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        x: {
-          title: {
-            display: true,
-            text: "Temperature (°C)",
-          },
-        },
-        y: {
-          reverse: true,
-          min: 0,
-          max: 100,
-          title: {
-            display: true,
-            text: "Depth (m)",
-          },
-        },
-      },
-      plugins: {
-        title: {
-          display: true,
-          text: "Coboiling Point vs. Depth",
-          padding: {
-            bottom: 10,
-          },
-        },
-        legend: {
-          display: false,
-        },
-      },
-    },
-  });
+  mychart(x, y);
 
   const depth = 10;
   const pw = depth * 9810;
@@ -149,19 +156,38 @@ function getResult() {
   } catch (error) {
     return "Failed to find a result.";
   }
+
+  document.getElementById("resultDiv").style.display = "block";
 }
+
+function setChartColorBasedOnTheme() {
+  if (document.body.classList.contains("light-theme")) {
+    Chart.defaults.color = "rgba(255, 255, 255, 0.8)";
+    Chart.defaults.borderColor = "rgba(255, 255, 255, 0.1)";
+  } else {
+    Chart.defaults.color = "rgba(0, 0, 0, 0.65)";
+    Chart.defaults.borderColor = "rgba(0, 0, 0, 0.15)";
+  }
+
+  if (chart) {
+    mychart(chart.data.labels, chart.data.datasets[0].data);
+  }
+}
+
+setChartColorBasedOnTheme();
+
+themeSwitcher = document.querySelector("#darkmode-toggle");
+themeSwitcher.addEventListener("click", setChartColorBasedOnTheme);
 
 const resetBtn = document.getElementById("reset");
 
 resetBtn.addEventListener("click", reset);
 function reset() {
-  // Destroy the chart if it exists
   if (chart) {
     chart.destroy();
     chart = null;
   }
 
-  // Clear the result text
   document.getElementById("resultText").innerText = "";
 
   // Reset all input fields and select elements
@@ -170,4 +196,6 @@ function reset() {
 
   const selects = ["contaminant_choice", "soil_choice"];
   selects.forEach((id) => (document.getElementById(id).selectedIndex = 0));
+
+  document.getElementById("resultDiv").style.display = "none";
 }

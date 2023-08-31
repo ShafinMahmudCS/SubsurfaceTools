@@ -473,7 +473,7 @@ html {
     left top,
     left bottom,
     from(transparent),
-    color-stop(40%, rgba(0, 0, 0, 0.05)),
+    color-stop(40%, rgba(155, 148, 148, 0.05)),
     to(rgba(0, 0, 0, 0.1))
   );
   background-image: linear-gradient(
@@ -838,7 +838,7 @@ a.pure-button-selected {
 .pure-form-message-inline {
   display: inline-block;
   padding-left: 0.3em;
-  color: #666;
+  color: var(--unit);
   vertical-align: middle;
   font-size: 0.875em;
 }
@@ -1135,4 +1135,8 @@ a.pure-button-selected {
 
 .pure-table-horizontal tbody > tr:last-child > td {
   border-bottom-width: 0;
+}
+
+.pure-menu-heading {
+  padding-left: 8rem;
 }

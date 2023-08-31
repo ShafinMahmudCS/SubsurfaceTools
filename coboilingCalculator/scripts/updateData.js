@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function populateContaminants() {
   const contaminantList = document.getElementById("contaminant_choice");
-  
+
   // Add default empty option
   const defaultOption = document.createElement("option");
   defaultOption.text = "Select a contaminant";
@@ -103,7 +103,7 @@ function populateContaminants() {
 
 function populateSoilDataList() {
   const soilsList = document.getElementById("soil_choice");
-  
+
   // Add default empty option
   const defaultOption = document.createElement("option");
   defaultOption.text = "Select a soil type";
@@ -119,7 +119,6 @@ function populateSoilDataList() {
     soilsList.appendChild(option);
   }
 }
-
 
 function update(value, type) {
   if (type === "contaminant") {

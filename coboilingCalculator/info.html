@@ -7,8 +7,14 @@
     <link rel="stylesheet" href="./styles/style.css">
     <title>Co-Boiling Calc</title>
 </head>
-<body>
+<body class="light-theme">
+    <input type="checkbox" id="darkmode-toggle"/>
+    <label id="toggleLabel" for="darkmode-toggle">
+      <img src="./resources/sun.svg" class="sun" />
+      <img src="./resources/moon.svg" class="moon" />
+    </label>
 <header>
+
     <div class="header">
         <nav>
             <div class="home-menu pure-menu-horizontal pure-menu-fixed">
@@ -54,7 +60,7 @@
             <p><b>Henry’s Coefficient: </b> Henry’s coefficient is the ratio between the aqueous phase concentration
                 and the gas phase concentration. For the cBPC, it is assumed to be temperature dependant and a linear
                 regression model in the form of <img src="./resources/equation_H.png"> was used. [1] Discrete data can be obtained from
-                the EPA online tool <a href="https://www3.epa.gov/ceampubl/learn2model/part-two/onsite/esthenry.html" target="_blank">here</a>,
+                the EPA online tool <a class="links" href="https://www3.epa.gov/ceampubl/learn2model/part-two/onsite/esthenry.html" target="_blank">here</a>,
                  which uses two different methods to calculate H based on temperature.
                 These discrete calculations are based on experimental results and are only accurate within a temperature
                 range same as the values obtained from the above paper [1]. Therefore these values may not be as
@@ -75,11 +81,11 @@
             <h2 class="content-subhead" ><a id="database"> Database</h2>
             <p>
                 The database is a collection of known soil and contaminant parameters.
-                The contaminants are separated by contaminant type and defined by the <a href="https://frtr.gov/matrix2/section2/2_intro.html" target="_blank">
+                The contaminants are separated by contaminant type and defined by the <a class="links" href="https://frtr.gov/matrix2/section2/2_intro.html" target="_blank">
                 FRTR screening Matrix and reference guide</a>. Molecular weight and solubility limit were obtained from
-                the <a href="https://www.ilo.org/safework/info/publications/WCMS_113134/lang--en/index.htm" target="_blank">
+                the <a class="links" href="https://www.ilo.org/safework/info/publications/WCMS_113134/lang--en/index.htm" target="_blank">
                 ILO International Chemical Safety Cards</a>. Henry’s Coefficient values were obtained from the
-                <a href="https://www3.epa.gov/ceampubl/learn2model/part-two/onsite/esthenry.html" target="_blank">EPA.</a> tool or
+                <a class="links" href="https://www3.epa.gov/ceampubl/learn2model/part-two/onsite/esthenry.html" target="_blank">EPA.</a> tool or
                 the paper [1]. Soil parameters were obtained from published papers which collected experimental data from different soils.
                 Soils are sorted by type and porosity therefore a soil closest in, porosity, Pd, Lambda and sr should be selected from
                 the database. If specific parameters, that are not in the database, are known they can be used in the cBPC.
@@ -96,7 +102,7 @@
                 fail to find a solution for the system if one doesn't exist or if it falls out of the expected bounds, most
                 real systems however should have a solution. The method of determining Henry's coefficient may also lead
                 to some inaccuracy at higher temperatures. For more information on the calculations and background research see
-                <a href="about.html">about</a>.
+                <a class="links" href="about.html">about</a>.
             </p>
             <h2 class="content-subhead" >References</h2>
             <p>
@@ -114,10 +120,12 @@
             </p>
         </div>
         <div style="text-align: center">
-            <a href="/contaminant" style="color: #f0f0f0">Calculator</a>&emsp;
-            <a href="/info" style="color: #f0f0f0">Information</a>&emsp;
-            <a href="/about" style="color: #f0f0f0">About</a>&emsp;
-            <a href="/about/#contact" style="color: #f0f0f0">Contact</a>
+            <a href="index.html" style="color: #f0f0f0">Calculator</a>&emsp;
+            <a href="info.html" style="color: #f0f0f0">Information</a>&emsp;
+            <a href="about.html" style="color: #f0f0f0">About</a>&emsp;
+            <a href="about.html#contact" style="color: #f0f0f0">Contact</a>
         </div>
     </footer>
+    <script src="./scripts/theme.js"></script>
     </body>
+</html>

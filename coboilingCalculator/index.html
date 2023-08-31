@@ -8,21 +8,29 @@
     <title>Co-Boiling Calc</title>
 </head>
 
-<body>
-    <header>
-        <div class="header">
-            <nav>
+<body class="light-theme">
+    <input type="checkbox" id="darkmode-toggle"/>
+    <label id="toggleLabel" for="darkmode-toggle">
+      <img src="./resources/sun.svg" class="sun" />
+      <img src="./resources/moon.svg" class="moon" />
+    </label>
+    <nav>
+
+  
+
+                <input type="checkbox" id="darkmode-toggle" />
+
                 <div class="home-menu pure-menu-horizontal pure-menu-fixed">
                     <a class="pure-menu-heading" href="../index.html">Subsurface Tools</a>
                     <ul class="pure-menu-list" style="padding-right: 1em">
-                        <li class="pure-menu-item"><a class="pure-menu-link" href="./index.html">CALC</a></li>
+                        <li class="pure-menu-item"><a id="firstLink" class="pure-menu-link" href="./index.html">CALC</a></li>
                         <li class="pure-menu-item"><a class="pure-menu-link" href="./info.html">INFO</a></li>
                         <li class="pure-menu-item"><a class="pure-menu-link" href="./about.html">ABOUT</a></li>
                     </ul>
                 </div>
             </nav>
-        </div>
-    </header>
+   
+
 
     <div class="content-wrapper">
         <div class="content">
@@ -33,7 +41,7 @@
                     <p>The calculator provides a tool for determining the co-boiling point of a contaminant in
                         groundwater under various subsurface conditions. Fill out each field for soil and contaminant
                         parameters to find the desired co-boiling point. For more information on parameters or anything
-                        else see <a href="#">Calculator Information</a>.</p>
+                        else see <a class="links" href="#">Calculator Information</a>.</p>
                 </div>
             </header>
 
@@ -47,7 +55,7 @@
             <div id="soilForm" class="tab-content">
                 Input soil parameters below, or select a known soil from menu below.
                 Menu below contains known soils and their parameters compiled in a database. For more
-                information see <a href="info.html#database">Database</a>.
+                information see <a class="links" href="info.html#database">Database</a>.
                 <div style="border-bottom: 3px solid var(--mid-accent)">
                     <select id="soil_choice" name="soil_choice" onchange="update(this.value, 'soil')">
                       </select>
@@ -68,7 +76,7 @@
                             <label for="swr">Residual Water Saturation</label>
                             <input id='swr' name="swr" type="number" oninput="check(this)" step="any" max="0.999"
                                 placeholder="Enter Value..." />
-                            <span class="pure-form-message-inline" title="See Info for more information."><a
+                            <span class="pure-form-message-inline" title="See Info for more information."><a class="links"
                                     href="./info.html#parameters">&#8505;</a></span>
                         </div>
                         <div class="pure-control-group">
@@ -101,7 +109,7 @@
             <div id="contaminantForm" class="tab-content active">
                 Input contaminant parameters below, or select a known contaminant from menu below.
                 Menu below contains known contaminants and their parameters compiled in a database. For more
-                information see <a href="info.html#database">Database</a>.
+                information see <a class="links" href="info.html#database">Database</a>.
                 <div style="border-bottom: 3px solid var(--mid-accent)">
                     <select id="contaminant_choice" name="contaminant_choice" onchange="update(this.value, 'contaminant')">
                       </select>
@@ -128,7 +136,7 @@
                             <label for="a">Henry's Constant Regression (A)</label>
                             <input id='a' type="number" oninput="check(this)" step="any" placeholder="Enter Value..." />
                             <span class="pure-form-message-inline" title="See Info for more information.">
-                                <a href="./info.html#parameters">&#8505;</a>
+                                <a class="links" href="./info.html#parameters">&#8505;</a>
                             </span>
                         </div>
                         <div class="pure-control-group" style="padding-bottom: 1em">
@@ -159,7 +167,7 @@
             <div id="resultDiv">
                 <hr style="border-bottom: 3px solid var(--dark-accent)">
                 <span id="resultText"></span>&emsp;
-                <a href="./info.html#math"
+                <a class="links" href="./info.html#math"
                     title="Value rounded to nearest whole number. Press to see more information on calculations.">
                     <span>&#8505;</span>
                 </a>
@@ -170,9 +178,6 @@
                     style="display: none;">
                     <div class="myCanvas">
                         <canvas id="chartCanvas"></canvas>
-                        <div id="canvas1Time" class="canvas-info">
-                          <p><span class="blue">Time (t):</span> <span class="demo"></span> day(s)</p>
-                        </div>
                       </div>
             </div>
         </div>
@@ -186,10 +191,10 @@
             </p>
         </div>
         <div style="text-align: center">
-            <a href="/contaminant" style="color: #f0f0f0">Calculator</a>&emsp;
-            <a href="/info" style="color: #f0f0f0">Information</a>&emsp;
-            <a href="/about" style="color: #f0f0f0">About</a>&emsp;
-            <a href="/about/#contact" style="color: #f0f0f0">Contact</a>
+            <a href="index.html" style="color: #f0f0f0">Calculator</a>&emsp;
+            <a href="info.html" style="color: #f0f0f0">Information</a>&emsp;
+            <a href="about.html" style="color: #f0f0f0">About</a>&emsp;
+            <a href="about.html#contact" style="color: #f0f0f0">Contact</a>
         </div>
     </footer>
     <script>
@@ -227,6 +232,7 @@
     <script src="./scripts/calculation.js"></script>
     <script src="./scripts/displayResult.js"></script>
     <script src="./scripts/updateData.js"></script>
+    <script src="./scripts/theme.js"></script>
 </body>
 
 </html>
