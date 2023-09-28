@@ -45,13 +45,17 @@ define color scheme with variables
 body {
   color: var(--dark-text);
   background: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .content {
-  padding: 0 2em;
+  padding: 2em 2em;
   max-width: 800px;
   margin: auto;
   line-height: 1.6em;
+  flex: 1;
 }
 
 .header {
@@ -237,12 +241,6 @@ body {
   padding-bottom: 0.5em;
   color: #f0f0f0;
   width: 100%;
-  position: fixed;
-  bottom: 0;
-}
-
-#resultDiv {
-  margin-bottom: 8rem;
 }
 
 .responsive {
